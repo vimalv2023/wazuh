@@ -22,7 +22,9 @@ jobs:
         run: git checkout -b client-1
 
       - name: Merge changes from main branch
-        run: git merge main
+        run: | 
+          git merge main
+          git commit
 
       - name: Push changes to client-1 branch
-        run: git push origin client-1
+        run: git push -u origin client-1
