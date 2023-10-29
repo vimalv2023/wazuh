@@ -15,12 +15,14 @@ jobs:
       with:
         ref: main
 
-    - name: Create client-1 branch
+    - name: Fetch the latest changes from the remote client-1 branch
       run: |
-        git checkout -B client-1
+        git fetch origin client-1
 
-    - name: Push client-1 branch
+    - name: Merge the remote client-1 branch into the local client-1 branch
       run: |
+        git checkout client-1
+        git merge origin/client-1
         git push origin client-1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
