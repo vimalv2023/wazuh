@@ -15,9 +15,9 @@ jobs:
       with:
         ref: main
 
-    - name: Create or update client-1 branch
+    - name: Fetch the latest changes from the remote client-1 branch
       run: |
-        git checkout -B client-1
+        git fetch origin client-1
 
     - name: Push changes to client-1 branch
       run: |
