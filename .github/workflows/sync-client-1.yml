@@ -19,11 +19,15 @@ jobs:
       run: |
         # Create or update the client-1 branch
         git checkout -B client-1
-        git push origin client-1
+        git push -u origin client-1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Pull and push changes to client-1 branch
+      run: |
         # Pull the latest changes from the remote client-1 branch
         git pull origin client-1
-
+        
         # Push the changes to the client-1 branch
         git push origin client-1
       env:
