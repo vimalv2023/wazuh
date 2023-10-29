@@ -1,4 +1,4 @@
-name: Sync to client-1 branch
+name: Overwrite client-1 branch
 
 on:
   push:
@@ -6,28 +6,22 @@ on:
       - main
 
 jobs:
-  sync:
+  overwrite:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout main branch
-      uses: actions/checkout@v2
-      with:
-        ref: main
-
-    - name: Create or update client-1 branch
+    - name: Checkout client-1 branch
       run: |
-        # Create or update the client-1 branch
-        git checkout -B client-1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        git checkout client-1
 
-    - name: Pull and push changes to client-1 branch
+    - name: Fetch the latest changes from the main branch
       run: |
-        # Pull the latest changes from the remote client-1 branch and rebase
-        git pull origin client-1
-        
-        # Push the changes to the client-1 branch
-        git push origin client-1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        git fetch origin main
+
+    - name: Reset the client-1 branch to match the main branch
+      run: |
+        git reset --hard origin/main
+
+    - name: Force push the client-1 branch to the remote repository
+      run: |
+        git push origin client-1 --force
