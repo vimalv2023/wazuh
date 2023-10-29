@@ -22,6 +22,7 @@ jobs:
         run: |
           if [[ "$(git fetch origin && git status -b)" =~ "Your branch is up to date with 'origin/main'" ]]; then
             exit 0
+          fi
           else
       # The client-1 branch is not up to date, so set it up and merge changes from the main branch.
       - name: Set up client-1 branch
