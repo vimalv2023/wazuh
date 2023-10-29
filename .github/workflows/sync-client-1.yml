@@ -21,8 +21,10 @@ jobs:
 
     - name: Merge the remote client-1 branch into the local client-1 branch
       run: |
-        git checkout client-1
-        git merge origin/client-1
+        git merge -- origin/client-1
+
+    - name: Push changes to client-1 branch
+      run: |
         git push origin client-1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
