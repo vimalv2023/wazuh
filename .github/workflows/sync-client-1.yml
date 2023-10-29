@@ -29,6 +29,6 @@ jobs:
         git pull origin client-1
         
         # Push the changes to the client-1 branch
-        git push origin client-1
+        git push --force origin client-1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
