@@ -1,0 +1,38 @@
+name: Sync main branch to client-2 branch
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v2
+        with:
+          ref: main
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      - name: Check if client-2 branch is up to date
+        run: |
+          if [[ "$(git fetch origin && git status -b)" =~ "Your branch is up to date with 'origin/main'" ]]; then
+            exit 0
+          fi
+
+      # The client-2 branch is not up to date, so set it up and merge changes from the main branch.
+      - name: Set up and checkout client-2 branch
+        run: |
+          git checkout -b client-2
+
+      - name: Merge changes from main branch
+        run: git merge main
+
+      - name: Push changes to client-2 branch
+        run: git push origin client-2
