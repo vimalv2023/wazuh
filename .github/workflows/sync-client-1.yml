@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write-only
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -27,5 +30,3 @@ jobs:
         git push origin client-1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      permissions:
-         contents: write-only
