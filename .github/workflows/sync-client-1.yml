@@ -13,12 +13,8 @@ jobs:
       - name: Fetch changes
         uses: actions/checkout@v3
 
-      - name: Set up Git
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-
       - name: Check if client-1 branch is up to date
+        needs: fetch-changes
         run: |
           if [[ "$(git fetch origin && git status -b)" =~ "Your branch is up to date with 'origin/main'" ]]; then
             echo "Client-1 branch is already up to date. Skipping merge."
@@ -26,10 +22,13 @@ jobs:
           fi
 
       - name: Switch to client-1 branch
+        needs: check-client-1-branch
         run: git checkout client-1
 
       - name: Merge changes from main branch
+        needs: switch-client-1-branch
         run: git merge main
 
       - name: Push changes to client-1 branch
+        needs: merge-changes
         run: git push -u origin client-1
