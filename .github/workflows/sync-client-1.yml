@@ -21,7 +21,7 @@ jobs:
 
     - name: Merge the remote client-1 branch into the local client-1 branch (if necessary)
       run: |
-        git merge origin/client-1
+        git merge main/client-1
 
     - name: Push changes to client-1 branch
       run: |
