@@ -27,5 +27,5 @@ jobs:
         git push origin client-1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        permissions:
-          contents: write-only
+      permissions:
+         contents: write-only
