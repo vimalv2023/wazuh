@@ -17,25 +17,13 @@ jobs:
 
     - name: Create or update client-1 branch
       run: |
-        # Create or update the client-1 branch
-        git checkout -B client-1
-        git push origin client-1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Switch to the client-1 branch
+        git checkout client-1
 
-    - name: Merge client-1 branches
-      run: |
-        # Fetch the latest changes from the remote client-1 branch
-        git fetch origin client-1
+        # Merge changes from the main branch into client-1
+        git merge main
 
-        # Identify a common ancestor commit (commit_hash) between local and remote
-        # Then, perform a merge
-        git merge commit_hash
-
-        # Resolve any conflicts and commit the merge
-        git commit -m "Merged changes from client-1 branch"
-
-        # Push the merged changes to the remote client-1 branch
+        # Push the changes to the client-1 branch
         git push origin client-1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
