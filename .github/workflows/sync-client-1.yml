@@ -10,8 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Fetch changes
-        uses: actions/checkout@v3
+      - name: Checkout main branch
+        uses: actions/checkout@v2
+        with:
+          ref: main
 
       - name: Set up Git
         run: |
@@ -23,22 +25,14 @@ jobs:
           if [[ "$(git fetch origin && git status -b)" =~ "Your branch is up to date with 'origin/main'" ]]; then
             exit 0
           fi
-          else
-      # The client-1 branch is not up to date, so set it up and merge changes from the main branch.
-      - name: Set up client-1 branch
-        run: |
-          git checkout -b client-1
 
-      - name: Set up client-1 branch
+      # The client-1 branch is not up to date, so set it up and merge changes from the main branch.
+      - name: Set up and checkout client-1 branch
         run: |
           git checkout -b client-1
 
       - name: Merge changes from main branch
-        if: always()
         run: git merge main
 
       - name: Push changes to client-1 branch
-        if: always()
-        run: |
-          git push -u origin client-1
-          
+        run: git push origin client-1
