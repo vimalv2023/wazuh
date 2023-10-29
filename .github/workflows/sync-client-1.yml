@@ -34,4 +34,7 @@ jobs:
 
       - name: Push changes to client-1 branch
         if: always()
-        run: git push -u origin client-1
+        run: |
+          git pull origin client-1
+          git push -u origin client-1
+          
