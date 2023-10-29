@@ -1,0 +1,30 @@
+name: Sync to client-1 branch
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout master branch
+      uses: actions/checkout@v2
+      with:
+        ref: master
+
+    - name: Create or update client-1 branch
+      run: |
+        git checkout -B client-1
+        git push origin client-1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Push changes to client-1 branch
+      run: |
+        git fetch origin master:master
+        git push origin client-1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
