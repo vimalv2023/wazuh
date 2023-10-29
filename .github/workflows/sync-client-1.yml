@@ -15,8 +15,10 @@ jobs:
       with:
         ref: main
 
-    - name: Configure branch reconciliation
-      run: git config pull.rebase true
+    - name: Configure Git user identity
+      run: |
+        git config --global user.email "v99878785@gmail.com"
+        git config --global user.name "vimalv2023"
 
     - name: Create or update client-1 branch
       run: |
