@@ -15,14 +15,23 @@ jobs:
       with:
         ref: main
 
+    - name: Configure Git user identity
+      run: |
+        git config --global user.email "you@example.com"
+        git config --global user.name "Your Name"
+
     - name: Create or update client-1 branch
       run: |
-        # Switch to the client-1 branch
-        git checkout client-1
+        # Create or update the client-1 branch
+        git checkout -B client-1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-        # Merge changes from the main branch into client-1
-        git merge main
-
+    - name: Pull and push changes to client-1 branch
+      run: |
+        # Pull the latest changes from the remote client-1 branch and rebase
+        git pull origin client-1
+        
         # Push the changes to the client-1 branch
         git push origin client-1
       env:
