@@ -15,11 +15,6 @@ jobs:
       with:
         ref: main
 
-    - name: Configure Git user identity
-      run: |
-        git config --global user.email "you@example.com"
-        git config --global user.name "Your Name"
-
     - name: Create or update client-1 branch
       run: |
         # Create or update the client-1 branch
