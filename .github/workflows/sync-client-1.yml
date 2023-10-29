@@ -15,11 +15,6 @@ jobs:
       with:
         ref: main
 
-    - name: Configure Git user identity
-      run: |
-        git config --global user.email "v99878785@gmail.com"
-        git config --global user.name "vimalv2023"
-
     - name: Create or update client-1 branch
       run: |
         # Create or update the client-1 branch
@@ -29,7 +24,10 @@ jobs:
 
     - name: Pull and push changes to client-1 branch
       run: |
-        # Pull the latest changes from the remote client-1 branch and rebase
+        # Configure Git to perform a merge (not rebase)
+        git config pull.rebase false
+
+        # Pull the latest changes from the remote client-1 branch
         git pull origin client-1
         
         # Push the changes to the client-1 branch
