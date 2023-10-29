@@ -15,6 +15,9 @@ jobs:
       with:
         ref: main
 
+    - name: Configure branch reconciliation
+      run: git config pull.rebase true
+
     - name: Create or update client-1 branch
       run: |
         # Create or update the client-1 branch
@@ -24,7 +27,7 @@ jobs:
 
     - name: Pull and push changes to client-1 branch
       run: |
-        # Pull the latest changes from the remote client-1 branch
+        # Pull the latest changes from the remote client-1 branch and rebase
         git pull origin client-1
         
         # Push the changes to the client-1 branch
